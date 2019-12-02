@@ -1,0 +1,9 @@
+DROP TABLE BandGenres;
+DROP TABLE ShowsBands;
+DROP TABLE Shows;
+DROP TABLE Band;
+DROP TABLE Venue;
+DROP TABLE Location;
+DROP TABLE UserID;
+DROP TABLE Weather;
+DROP TABLE Genre;
