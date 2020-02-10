@@ -34,6 +34,8 @@ db.close()
 #Inline CSS because downloading it from another file was not working correctly
 html = """Content-type: text/html
 
+html = """Content-type: text/html
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +52,10 @@ html, body, div, h1, span, p{{
 }}
 body{{
     background-color: #333333;
+    background-image: url('pictures/Keyboard_Cropped.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }}
 header{{
     display: block;
@@ -60,7 +66,7 @@ img{{
 }}
 h1, h2, p, span{{
     color: #FFFFFF;
-}}
+
 table {{
   font-family: calibri, sans-serif;
   border-collapse: collapse;
@@ -102,28 +108,48 @@ tr:nth-child(even) {{
     border-color: #000000;
     border-style: solid;
 }}
+.btn {{
+    border: none;
+    background-color: #FFFFFF;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}}
+.login {{
+    background-color: #FFFFFF;
+    color: black;
+}}
+.login:hover {{
+    background-color: #FFCC00;
+    color: white;
+}}
+.signup {{
+    background-color: #FFFFFF;
+    color: black;
+}}
+.signup:hover {{
+    background-color: #FFCC00;
+    color: white;
+}}
 </style>
 </head>
 <body>
 <header>
 <div class="textbox">
-<a href="http://arden.cs.unca.edu/~zboone/graph">
+<a href="http://arden.cs.unca.edu/~zboone/">
 <img class = "align_left border" src="pictures/Syn_Logo_Black.png" alt="Logo" width="140" height="140">
 </a>
 <h1 class="fancy_text align_right">Music Marketing</h1>
 <div style="clear:both;"></div>
 </div>
+<button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/login';">Log In</button>
+<button class="btn signup" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/signup';">Sign Up</button>
+<button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/calendar_test';">Calendar</button>
 </header>
-<table>
-    <tr class="larger_text">
-        <th>Band Name</th>
-        <th>Hometown</th>
-        <th># of Band Members</th>
-    </tr>
-{DB}
-</table>
 </body>
 </html>
 """.format(DB=result)
+
 #Print Webpage
 print(html)
