@@ -13,8 +13,8 @@ CREATE TABLE Venue(venue_id int AUTO_INCREMENT, venue_name varchar(50) NOT NULL,
 PRIMARY KEY(venue_id), FOREIGN KEY(location_id) REFERENCES Location(location_id));
 
 CREATE TABLE Shows(show_id int AUTO_INCREMENT, venue_id int NOT NULL, show_date date NOT NULL, show_time time,
-number_of_acts int, weather_id int, ticket_price int NOT NULL, ig_flag char(1), fb_flag char(1),
-physical_ad_flag char(1), paid_ad_flag char(1), success_flag char(1) NOT NULL, profit_flag char(1) NOT NULL,
+number_of_acts int, weather_id int, ticket_price int, ig_flag char(1), fb_flag char(1),
+physical_ad_flag char(1), paid_ad_flag char(1), success_flag char(1), profit_flag char(1),
 charity_show_flag char(1), PRIMARY KEY(show_id), FOREIGN KEY(venue_id) REFERENCES Venue(venue_id),
 FOREIGN KEY(weather_id) REFERENCES Weather(weather_id));
 
