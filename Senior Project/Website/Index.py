@@ -1,5 +1,4 @@
-#Example webpage to show ability to connect to database and modify the DOM with
-#python
+#Homepage of my website
 
 #!/usr/bin/env python
 
