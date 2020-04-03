@@ -1,0 +1,138 @@
+/*
+    Filename: signup.css
+    Author: Zach Boone
+    Date: 2/24/2020
+
+    Stylesheet for signup.php (Signup page)
+*/
+
+html, body, div, h1, span, p{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-family: calibri, sans-serif;
+}
+body{
+    background-color: #333333;
+    background-image: url('../pictures/Guitar_Cropped_2.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+header{
+    display: block;
+    background-color: #000000;
+}
+img{
+    background-color: #111111;
+}
+h1, h2, p, span{
+    color: #FFFFFF;
+}
+.textbox {
+    display: flex;
+}
+.textbox h1 {
+    margin: auto;
+    vertical-align: top;
+}
+.box {
+    background-color: #828080;
+    width: 500px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+.align_left {
+    float: left;
+}
+.align_right {
+    float: right;
+}
+.larger_text {
+    font-size: 190%;
+}
+.fancy_text {
+    font-size: 400%;
+    font-family: "Brush Script MT", cursive;
+}
+.border {
+    border-width: 17px;
+    border-color: #000000;
+    border-style: solid;
+}
+.btn {
+    border: none;
+    background-color: #FFFFFF;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+.signup {
+    font-size: 16px;
+    background-color: #000;
+    color: white;
+}
+.signup:hover {
+    font-size: 16px;
+    background-color: #FFF;
+    color: black;
+}
+.login {
+    font-size: 16px;
+    background-color: #FFF;
+    color: black;
+}
+.login:hover {
+    font-size: 16px;
+    background-color: #000;
+    color: white;
+}
+.accept{
+    border: none;
+}
+
+.overlay {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow: auto;
+    top: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.7);
+}
+.error {
+    color: #FF2727;
+}
+.dark {
+    color: #000;
+}
+form {
+    width: 87%;
+    margin: 0 auto;
+}
+
+label, input {
+    display: inline-block;
+}
+
+label {
+    width: 32%;
+    text-align: right;
+}
+
+label + input {
+    width: 40%;
+    margin: 0 3% 0 2%;
+}
+
+input + input {
+    float: right;
+}
+label + select{
+    width: 38%;
+    margin: 0 8% 0 2%;
+}

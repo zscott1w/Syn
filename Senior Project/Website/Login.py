@@ -182,5 +182,5 @@ img{{
 
 print(html)
 
-#Close db
+#Close db:
 db.close()

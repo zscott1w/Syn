@@ -1,0 +1,103 @@
+/*
+    Name: index.css
+    Author: Zach Boone
+    Date: 2/23/2020
+
+    Stylesheet for index.php (homepage)
+*/
+
+html, body, div, h1, span, p{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font-family: calibri, sans-serif;
+}
+body{
+    background-color: #333333;
+    background-image: url('../pictures/Keyboard_Cropped.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+header{
+    display: block;
+    background-color: #000000;
+}
+img{
+    background-color: #111111;
+}
+h1, h2, p, span{
+    color: #FFFFFF;
+}
+table {
+  font-family: calibri, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+td, th {
+  border: 2px solid #000000;
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+  color: #000000
+}
+.textbox {
+    display: flex;
+}
+.textbox h1 {
+    margin: auto;
+    vertical-align: top;
+}
+.align_left {
+    float: left;
+}
+.align_right {
+    float: right;
+}
+.align_center {
+    text-align-last: center;
+}
+.larger_text {
+    font-size: 190%;
+}
+.fancy_text {
+    font-size: 400%;
+    font-family: "Brush Script MT", cursive;
+}
+.border {
+    border-width: 17px;
+    border-color: #000000;
+    border-style: solid;
+}
+.btn {
+    border: none;
+    background-color: #FFFFFF;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+.login {
+    background-color: #FFFFFF;
+    color: black;
+}
+.login:hover {
+    background-color: #FFCC00;
+    color: white;
+}
+.signup {
+    background-color: #FFFFFF;
+    color: black;
+}
+.signup:hover {
+    background-color: #FFCC00;
+    color: white;
+}
+.dark{
+    color: black;
+}
