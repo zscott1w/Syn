@@ -5,52 +5,39 @@
 //Database connection from another folder
 <?php
 include("php/database_conn.php");
-//if already logged in rederect to homepage
-if(isset($_COOKIE["type"])){
+if(isset($_COOKIE["user"])){
     header("location:index.php");
 }
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-//variables used in login request
 $username_error = $password_error = "<br>";
 $username = $password = "";
-//once submitted once, then test
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    //if they are both null then error
     if(empty($_POST["username"]) and empty($_POST["password"])){
         $username_error = "Both fields are required<br>";
     }
-    //if only username is null then error
     elseif(empty($_POST["username"])){
         $username_error = "Username is required<br>";
     }else{
-        //username not null (also protected from sql injection)
         $username = mysqli_real_escape_string($conn,$_POST['username']);
-        //test database to see if username exists
         $result = mysqli_query($conn, "Select * from UserID where user_id = '$username'");
-        //if exists get information
         if(mysqli_num_rows($result) > 0){
             while($row = mysqli_fetch_assoc($result)){
-                //get password and type of user from row
                 $hash_password = $row["user_password"];
-                $user_type = $row["user_type"];
+                $u = $row["activation_code"];
             }
-            //if password is empty error
             if(empty($_POST["password"])){
             $password_error = "Password is required";
             }else{
-                //username not null and hashed using sha1
                 $password = mysqli_real_escape_string($conn,$_POST['password']);
                 $hp = sha1($str.$password);
-                //if hashed passwords are equal, log in and update last login time
                 if($hp == $hash_password){
                     $timestamp = time();
                     $date_time = date("Y-m-d H:i:s", $timestamp);
                     mysqli_query($conn, "UPDATE UserID SET last_login = '$date_time' WHERE user_id = '$username'");
                     mysqli_commit($conn);
-                    //cookie is set with the type of user logged in
-                    setcookie("type", $user_type, time()+3600);
+                    setcookie("user", $u, time()+3600);
                     header("location:index.php");
                 }else{
                     $password_error = "Password is incorrect";
@@ -82,14 +69,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <h1 class="fancy_text align_right">Music Marketing</h1>
     <div style="clear:both;"></div>
     </div>
+    <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/';">Home</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/calendar.php';">Calendar</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/graphs.php';">Graphs</button>
     <button class = "btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/about.php';">About</button>
-
     <?php
-    //If cookies are inactive, show login and signup buttons
-    //Else show user account and logout
-    if(!isset($_COOKIE["type"])){
+    if(!isset($_COOKIE["user"])){
         echo "<button class=\"btn login align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/login.php';\">Log In</button>";
         echo "<p class=\"align_right\">&nbsp</p>";
         echo "<button class=\"btn login align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/signup.php';\">Sign Up</button>";
@@ -108,11 +93,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <label> Password: </label><input type = password name = "password" value=""><span class="error"> *</span><br><br>
     <input type="submit" value="Log In" class="accept login">
     </form><br>
-    <p> If you do not have an account...
-    <button class="accept login" onclick="window.location.href='http://arden.cs.unca.edu/~zboone/signup.php'">Create Account</button><br>
+    <p> If you do not have an account... </p>
+    <button class="accept login" onclick="window.location.href='http://arden.cs.unca.edu/~zboone/signup.php'">Create Account</button><br><br>
+    <button class="accept login" onclick="window.location.href='http://arden.cs.unca.edu/~zboone/password_recovery.php'">Forgot Password?</button><br>
     <p class="error">
     <?php
-    //Display errors (if any)
     echo $username_error;
     echo $password_error;
     mysqli_close($conn);

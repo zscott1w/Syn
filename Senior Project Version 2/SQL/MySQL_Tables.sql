@@ -25,4 +25,5 @@ CREATE TABLE ShowsBands(show_id int AUTO_INCREMENT, band_id int, FOREIGN KEY(sho
 FOREIGN KEY(band_id) REFERENCES Band(band_id), PRIMARY KEY(show_id, band_id));
 
 CREATE TABLE UserID(user_id varchar(1000) NOT NULL, user_email varchar(1000) NOT NULL, user_password varchar(1000) NOT NULL,
-user_type varchar(45), creation_date datetime, last_login datetime, activation_code varchar(32), active int, KEY(user_id)); 
+user_type varchar(45), creation_date datetime, last_login datetime, activation_code varchar(32), active int, affiliation varchar(60),
+KEY(user_id)); 

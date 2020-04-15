@@ -25,13 +25,14 @@ if (!$conn) {
         <h1 class="fancy_text align_right">Music Marketing</h1>
         <div style="clear:both;"></div>
     </div>
+    <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/';">Home</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/calendar.php';">Calendar</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/graphs.php';">Graphs</button>
     <button class = "btn signup" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/about.php';">About</button>
     <?php
     //If cookies are inactive, show login and signup buttons
     //Else show user account and logout
-    if(!isset($_COOKIE["type"])){
+    if(!isset($_COOKIE["user"])){
         echo "<button class=\"btn login align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/login.php';\">Log In</button>";
         echo "<p class=\"align_right\">&nbsp</p>";
         echo "<button class=\"btn signup align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/signup.php';\">Sign Up</button>";
