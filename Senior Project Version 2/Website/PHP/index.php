@@ -30,7 +30,7 @@ include("php/database_conn.php");
     <?php
     //If cookies are inactive, show login and signup buttons
     //Else show user account and logout
-    if(!isset($_COOKIE["type"])){
+    if(!isset($_COOKIE["user"])){
         echo "<button class=\"btn login align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/login.php';\">Log In</button>";
         echo "<p class=\"align_right\">&nbsp</p>";
         echo "<button class=\"btn signup align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/signup.php';\">Sign Up</button>";
@@ -41,12 +41,6 @@ include("php/database_conn.php");
     mysqli_close($conn);
     ?>
 </header>
-<?php
-$c = $_COOKIE["type"];
-if(isset($_COOKIE["type"])){
-    echo "<h2 class=\"align_center dark\">Welcome $c!!!</h2>";
-}
-?>
 <a href="http://arden.cs.unca.edu/~zboone/">
 <div class="timeline">
 <h1 class="larger_text">Welcome to Syn!</h1><p>1:13 AM 4/12/2020</p><br>

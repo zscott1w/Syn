@@ -4,10 +4,10 @@ from os import environ
 import MySQLdb, plotly, cgi
 from plotly import graph_objs as go, tools as ts
 try:
-    db = MySQLdb.connect(host="avl.cs.unca.edu",    # your host
-                         user="zboone",             # your username
-                         passwd="Sparks12",         # your password
-                         db="zbooneDBsyn1")         # name of the database
+    db = MySQLdb.connect(host="",    # your host
+                         user="",             # your username
+                         passwd="",         # your password
+                         db="")         # name of the database
 except Exception as E:
     print('Error {}'.format(E))
 
