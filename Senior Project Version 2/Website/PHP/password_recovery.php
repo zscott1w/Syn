@@ -1,12 +1,35 @@
-//user_account.php
-//Zach Boone
-//user account holder page
-
-//Database connection from another folder
 <?php
 include("php/database_conn.php");
-if(!isset($_COOKIE["user"])){
-    header("location:index.php");
+$email_error = $password_error = "";
+$email = $password = $password2 = "";
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(empty($_POST["email"])){
+        $email_error = "Email is required<br>";
+    }else{
+        $email = mysqli_real_escape_string($conn,$_POST['email']);
+        $result_email = mysqli_query($conn, "Select * from UserID where user_email = '$email'");
+        if(mysqli_num_rows($result_email) > 0){
+            while($row = mysqli_fetch_assoc($result_email)){
+                $code = $row["activation_code"];
+            }
+            $to = $email;
+            $subject = 'Syn Account Change Password';
+            $message = '
+
+            You have requested to change your password, please click this link to change it:
+
+            http://arden.cs.unca.edu/~zboone/change.php?&email='.$email.'&activation_code='.$code.'
+
+            ';
+
+            $from = 'From:noreply@cs.unca.edu' . "\r\n";
+            mail($to, $subject, $message, $from);
+
+            header("location:login.php");
+        }else{
+            $email_error = "Email not found<br>";
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -43,24 +66,18 @@ if(!isset($_COOKIE["user"])){
 </header>
 <center><br><br>
     <div class="box">
+    <h3 class="larger_text"> Recover Account </h3><br>
+    <form action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "post">
+    <label> Give email address: </label><input type = "text" name = "email"><br><br>
+    <input type="submit" value="Enter email" class="accept login">
+    </form><br><br>
+    <p class="error">
     <?php
-    $c = $_COOKIE["user"];
-    $result = mysqli_query($conn, "Select * from UserID where activation_code = '$c'");
-    if(mysqli_num_rows($result) > 0){
-        while($row = mysqli_fetch_assoc($result)){
-            $id = $row["user_id"];
-            $email = $row["user_email"];
-            $type = $row["user_type"];
-        }
-    }
+    echo $email_error;
     mysqli_close($conn);
-    echo "<h1 class = 'larger_text'>Hello $id!</h1>";
-    echo "<h2 class = 'larger_text'>Your Email is: $email</h2>";
-    echo "<h2 class = 'larger_text'>You are a $type</h2>";
     ?>
-    <button onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/delete_account.php';" class="accept login">Delete Account</button>
-    <button onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/email_change.php';" class="accept login">Change Email</button>
-    <button onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/password_recovery.php';" class="accept login">Change Password</button>
+    </p>
+    <p> An email will be sent to the address </p>
     </div>
 </center>
 </body>

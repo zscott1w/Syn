@@ -22,6 +22,7 @@ include("php/database_conn.php");
         <h1 class="fancy_text align_right">Music Marketing</h1>
         <div style="clear:both;"></div>
     </div>
+    <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/';">Home</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/calendar.php';">Calendar</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/graphs.php';">Graphs</button>
     <button class = "btn signup" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/about.php';">About</button>
@@ -41,11 +42,17 @@ include("php/database_conn.php");
     ?>
 </header>
 <?php
-//Welcome the type of user stored in cookie (band, venue, or fan)
 $c = $_COOKIE["type"];
 if(isset($_COOKIE["type"])){
     echo "<h2 class=\"align_center dark\">Welcome $c!!!</h2>";
 }
 ?>
+<a href="http://arden.cs.unca.edu/~zboone/">
+<div class="timeline">
+<h1 class="larger_text">Welcome to Syn!</h1><p>1:13 AM 4/12/2020</p><br>
+<img src="pictures/Syn_Icon_White.png" height="156" width="156" align="left" hspace="30">
+<p>Hello, welcome to our website! Syn (pronunced like Scene) is a music marketing project based in Asheville NC. Syn is a Research Project created at UNC Asheville by Quinn McKerney and Zach Boone as a part of the Ideas to Action program. We are dedicated to helping the Asheville area music scene connect with the local citizens. Our goal is to make music shows more profitable and successful for all parties involved. Our website consists of a comprehensive show calendar and graphical analysis of previous shows in based the Asheville area venues. As we recieve feedback the trends will continue to grow and change as the music scene changes. Get started by signing up for an account and jump into Syn.</p>
+</div>
+</a>
 </body>
 </html>

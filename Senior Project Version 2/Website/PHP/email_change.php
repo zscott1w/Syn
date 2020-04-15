@@ -1,12 +1,41 @@
-//user_account.php
-//Zach Boone
-//user account holder page
-
-//Database connection from another folder
 <?php
 include("php/database_conn.php");
 if(!isset($_COOKIE["user"])){
     header("location:index.php");
+}
+$c = $_COOKIE["user"];
+$error = $email = "";
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(empty($_POST["new_email"])){
+        $error = "Email is required<br>";
+    }else{
+        $email = mysqli_real_escape_string($conn,$_POST['new_email']);
+        $result_email = mysqli_query($conn, "Select * from UserID where user_email = '$email'");
+        if(mysqli_num_rows($result_email) > 0){
+            $error = "Email has already been used";
+        }else{
+            if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+                mysqli_query($conn, "UPDATE UserID SET user_email = '$email', active = '0' WHERE activation_code = '$c'");
+                mysqli_commit($conn);
+                $to = $email;
+                $subject = 'Syn New Email Verification';
+                $message = '
+
+                You changed your Syn account Email, please click this link to verify it:
+
+                http://arden.cs.unca.edu/~zboone/verify.php?&email='.$email.'&activation_code='.$c.'
+
+                ';
+
+                $from = 'From:noreply@cs.unca.edu' . "\r\n";
+                mail($to, $subject, $message, $from);
+
+                header("location:index.php");
+            }else{
+                $error = "Email invalid<br>";
+            }
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -28,7 +57,7 @@ if(!isset($_COOKIE["user"])){
     </div>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/';">Home</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/calendar.php';">Calendar</button>
-    <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/graphs.php';">Graphs</button>
+    <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/graphs.py';">Graphs</button>
     <button class = "btn signup" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/about.php';">About</button>
     <?php
     if(!isset($_COOKIE["user"])){
@@ -43,24 +72,18 @@ if(!isset($_COOKIE["user"])){
 </header>
 <center><br><br>
     <div class="box">
+    <h2 class="larger_text">Change Email </h2>
+    <form action = "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method = "post">
+    <label> New email address: </label><input type = "text" name = "new_email"><br><br>
+    <input type="submit" value="Change Email" class="accept login">
+    </form><br><br>
+    <p> You will be sent an message to verify your email </p>
+    <p class="error">
     <?php
-    $c = $_COOKIE["user"];
-    $result = mysqli_query($conn, "Select * from UserID where activation_code = '$c'");
-    if(mysqli_num_rows($result) > 0){
-        while($row = mysqli_fetch_assoc($result)){
-            $id = $row["user_id"];
-            $email = $row["user_email"];
-            $type = $row["user_type"];
-        }
-    }
+    echo $error;
     mysqli_close($conn);
-    echo "<h1 class = 'larger_text'>Hello $id!</h1>";
-    echo "<h2 class = 'larger_text'>Your Email is: $email</h2>";
-    echo "<h2 class = 'larger_text'>You are a $type</h2>";
     ?>
-    <button onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/delete_account.php';" class="accept login">Delete Account</button>
-    <button onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/email_change.php';" class="accept login">Change Email</button>
-    <button onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/password_recovery.php';" class="accept login">Change Password</button>
+    </p>
     </div>
 </center>
 </body>

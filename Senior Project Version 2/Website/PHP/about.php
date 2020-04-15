@@ -24,6 +24,7 @@ include("php/database_conn.php");
         <h1 class="fancy_text align_right">Music Marketing</h1>
         <div style="clear:both;"></div>
     </div>
+    <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/';">Home</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/calendar.php';">Calendar</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/graphs.php';">Graphs</button>
     <button class = "btn signup" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/about.php';">About</button>
@@ -46,8 +47,10 @@ include("php/database_conn.php");
 <br><br>
 <div class="box">
 <h2 class="larger_text align_center">About</h2>
-<p class="medium_text align_center">Syn is committed to giving venues and talent bookers the tools they need to throw successful and profitable shows. By providing in depth analytics, venues and bookers can make more educated decisions about the shows they put on. In addition to analytics that will impact venue and booker planning, Syn is also home to a live music calendar, giving community members a one stop place to find all of the city’s live music events. Syn’s platform and database is continuing to grow, increasing its relevance and accuracy for the Asheville music scene.</p>
-<br><br><br>
+<p class="medium_text align_center">Syn is committed to giving venues and talent bookers the tools they need to throw successful and profitable shows. By providing in depth analytics, venues and bookers can make more educated decisions about the shows they put on. Syn is also home to a live music calendar, giving community members a one stop place to find all of the cityâ€™s live music events. Synâ€™s platform and database is continuing to grow, increasing its helpfulness and accuracy for the Asheville music scene.</p>
+<br><br>
+<p class="medium_text"> Contact us: <mark>synmusicmarketing@gmail.com</mark></p>
+<br><br>
 </div>
 </center>
 </body>
