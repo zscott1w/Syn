@@ -1,11 +1,7 @@
-//index.php
-//Zach Boone
-//Syn Homepage
-
-//Database connection from another folder
-<?php
-include("php/database_conn.php");
-?>
+<!--
+    index.php | Zachary Boone | 4/26/2020
+    Homepage of the website
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +10,7 @@ include("php/database_conn.php");
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="icon" href="pictures/Syn_Icon_White.png">
 </head>
+<body>
 <header>
     <div class="textbox">
         <a href="http://arden.cs.unca.edu/~zboone/">
@@ -26,19 +23,15 @@ include("php/database_conn.php");
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/calendar.php';">Calendar</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/graphs.php';">Graphs</button>
     <button class = "btn signup" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/about.php';">About</button>
-
     <?php
-    //If cookies are inactive, show login and signup buttons
-    //Else show user account and logout
     if(!isset($_COOKIE["user"])){
         echo "<button class=\"btn login align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/login.php';\">Log In</button>";
         echo "<p class=\"align_right\">&nbsp</p>";
         echo "<button class=\"btn signup align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/signup.php';\">Sign Up</button>";
     }else{
         echo "<button class=\"btn login\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/user_account.php';\">Account</button>";
-        echo "<a href=\"logout.php\" class=\"btn signup align_right\" role=\"button\">Log Out</a>";
+        echo "<button class=\"btn login align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/logout.php';\">Sign Out</button>";
     }
-    mysqli_close($conn);
     ?>
 </header>
 <a href="http://arden.cs.unca.edu/~zboone/">

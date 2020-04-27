@@ -1,19 +1,38 @@
 <?php
-include("php/database_conn.php");
+//email_change.php | Zachary Boone | 4/26/2020
+//Changes the email for the current user and sends a confirmation email
+
+//Redirect if user is not logged in
+//else -> Include database and set cookie value to a variable
 if(!isset($_COOKIE["user"])){
     header("location:index.php");
+}else{
+    include("php/database_conn.php");
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+    $c = $_COOKIE["user"];
 }
-$c = $_COOKIE["user"];
+
 $error = $email = "";
+
+//Once the form has been submitted then try to change the user's email
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    //If there isn't an email for some reason -> display error
     if(empty($_POST["new_email"])){
         $error = "Email is required<br>";
     }else{
+
+        //Take new email and test to see if has been used already (Emails are unique in the database)
         $email = mysqli_real_escape_string($conn,$_POST['new_email']);
         $result_email = mysqli_query($conn, "Select * from UserID where user_email = '$email'");
         if(mysqli_num_rows($result_email) > 0){
             $error = "Email has already been used";
         }else{
+
+            //If email hasn't been used ensure its a valid email
+            //If valid -> Update email and send activation link to new address
             if(filter_var($email, FILTER_VALIDATE_EMAIL)){
                 mysqli_query($conn, "UPDATE UserID SET user_email = '$email', active = '0' WHERE activation_code = '$c'");
                 mysqli_commit($conn);
@@ -26,10 +45,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 http://arden.cs.unca.edu/~zboone/verify.php?&email='.$email.'&activation_code='.$c.'
 
                 ';
-
                 $from = 'From:noreply@cs.unca.edu' . "\r\n";
                 mail($to, $subject, $message, $from);
-
+                //Redirect to home
                 header("location:index.php");
             }else{
                 $error = "Email invalid<br>";
@@ -37,6 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 }
+mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,7 +100,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <p class="error">
     <?php
     echo $error;
-    mysqli_close($conn);
     ?>
     </p>
     </div>

@@ -1,17 +1,31 @@
 <?php
+//password_recovery.php | Zachary Boone | 4/26/2020
+//Request email on file to change their account password
+
+//Database connection
 include("php/database_conn.php");
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
 $email_error = $password_error = "";
 $email = $password = $password2 = "";
+
+//Once form is submitted and email is verified, send them a email that redirects* them to another form
+//*password_change.php
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($_POST["email"])){
         $email_error = "Email is required<br>";
     }else{
+
         $email = mysqli_real_escape_string($conn,$_POST['email']);
-        $result_email = mysqli_query($conn, "Select * from UserID where user_email = '$email'");
+        $result_email = mysqli_query($conn, "Select user_id, activation_code from UserID where user_email = '$email'");
+
         if(mysqli_num_rows($result_email) > 0){
             while($row = mysqli_fetch_assoc($result_email)){
                 $code = $row["activation_code"];
             }
+
             $to = $email;
             $subject = 'Syn Account Change Password';
             $message = '
@@ -24,13 +38,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             $from = 'From:noreply@cs.unca.edu' . "\r\n";
             mail($to, $subject, $message, $from);
-
+            //Redirect to home
             header("location:login.php");
         }else{
             $email_error = "Email not found<br>";
         }
     }
 }
+mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,7 +89,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <p class="error">
     <?php
     echo $email_error;
-    mysqli_close($conn);
     ?>
     </p>
     <p> An email will be sent to the address </p>

@@ -1,17 +1,30 @@
 <?php
+//password_change.php | Zachary Boone | 4/26/2020
+//Utility to allow users to change their password if forgotten or desired
+
+//Connect to database
 include("php/database_conn.php");
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
 $password_error = "";
 $password = $password2 = "";
+
+//Test values against email link. If they match then allow user to change password
 if(isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['activation_code']) && !empty($_GET['activation_code'])){
+
     $email = mysqli_real_escape_string($conn,$_GET['email']);
     $code = mysqli_real_escape_string($conn,$_GET['activation_code']);
     $e = $_GET['email'];
     $c = $_GET['activation_code'];
     $action = "change.php?&email=$e&activation_code=$c";
-    $query = "SELECT * FROM UserID WHERE user_email='$email' AND activation_code='$code'";
+    $query = "SELECT user_id FROM UserID WHERE user_email='$email' AND activation_code='$code'";
     $result = mysqli_query($conn, $query);
     if(mysqli_num_rows($result) > 0){
         if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+            //test if passwords match and change user password
             if(empty($_POST["password"]) or empty($_POST["password2"])){
                     $password_error = "Passwords are required";
             }else{
@@ -32,8 +45,9 @@ if(isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['activation_c
         $pass = '<h2 class="align_center">Password not changed</h2>';
     }
 }else{
-    $pass = "Something went wrong";
+    $pass = '<h2 class="align_center">Something went wrong. Please contact us.</h2>';
 }
+mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,7 +92,6 @@ if(isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['activation_c
     <p class="error">
     <?php
     echo $password_error;
-    mysqli_close($conn);
     echo $pass;
     ?>
     </p>
