@@ -1,8 +1,6 @@
 <?php
 //logout.php
-//Zach Boone
-//Logout script for users
-
+//Logout the user
 setcookie("user", "", time()-3600);
 header("location:index.php");
 ?>

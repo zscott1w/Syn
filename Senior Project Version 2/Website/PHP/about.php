@@ -1,12 +1,7 @@
-//about.php
-//Zach Boone
-//About our website and what the goals of Syn are
-
-//Database connection from another folder
-<?php
-include("php/database_conn.php");
-?>
-
+<!--
+    about.php | Zachary Boone | 4/26/2020
+    The about page and contact email for Syn's Website
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,26 +23,22 @@ include("php/database_conn.php");
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/calendar.php';">Calendar</button>
     <button class="btn login" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/graphs.php';">Graphs</button>
     <button class = "btn signup" onclick="window.location.href = 'http://arden.cs.unca.edu/~zboone/about.php';">About</button>
-
     <?php
-    //If cookies are inactive, show login and signup buttons
-    //Else show user account and logout
     if(!isset($_COOKIE["user"])){
         echo "<button class=\"btn login align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/login.php';\">Log In</button>";
         echo "<p class=\"align_right\">&nbsp</p>";
         echo "<button class=\"btn signup align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/signup.php';\">Sign Up</button>";
     }else{
         echo "<button class=\"btn login\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/user_account.php';\">Account</button>";
-        echo "<a href=\"logout.php\" class=\"btn signup align_right\" role=\"button\">Log Out</a>";
+        echo "<button class=\"btn login align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/logout.php';\">Sign Out</button>";
     }
-    mysqli_close($conn);
     ?>
 </header>
 <center>
 <br><br>
 <div class="box">
 <h2 class="larger_text align_center">About</h2>
-<p class="medium_text align_center">Syn is committed to giving venues and talent bookers the tools they need to throw successful and profitable shows. By providing in depth analytics, venues and bookers can make more educated decisions about the shows they put on. Syn is also home to a live music calendar, giving community members a one stop place to find all of the cityâ€™s live music events. Synâ€™s platform and database is continuing to grow, increasing its helpfulness and accuracy for the Asheville music scene.</p>
+<p class="medium_text align_center">Syn is committed to giving venues and talent bookers the tools they need to throw successful and profitable shows. By providing in depth analytics, venues and bookers can make more educated decisions about the shows they put on. Syn is also home to a live music calendar, giving community members a one stop place to find all of the city’s live music events. Syn’s platform and database is continuing to grow, increasing its helpfulness and accuracy for the Asheville music scene.</p>
 <br><br>
 <p class="medium_text"> Contact us: <mark>synmusicmarketing@gmail.com</mark></p>
 <br><br>

@@ -1,5 +1,9 @@
+<!--
+    delete_account.php | Zachary Boone | 4/26/2020
+    A confirmation textbox that redirects* to another script to delete the user's account for them
+    *Redirects to delete.php
+-->
 <?php
-include("php/database_conn.php");
 if(!isset($_COOKIE["user"])){
     header("location:index.php");
 }
@@ -34,7 +38,6 @@ if(!isset($_COOKIE["user"])){
         echo "<button class=\"btn login\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/user_account.php';\">Account</button>";
         echo "<button class=\"btn login align_right\" onclick=\"window.location.href = 'http://arden.cs.unca.edu/~zboone/logout.php';\">Sign Out</button>";
     }
-    mysqli_close($conn);
     ?>
 </header>
 <center><br><br>
