@@ -1,3 +1,5 @@
+#Syn Database | Zachary Boone | 4/26/2020
+
 CREATE TABLE Genre(genre_id int AUTO_INCREMENT, genre_name varchar(50) NOT NULL, PRIMARY KEY(genre_id));
 
 CREATE TABLE Weather(weather_id int AUTO_INCREMENT, weather_type varchar(50) NOT NULL, PRIMARY KEY(weather_id));
